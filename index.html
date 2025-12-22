@@ -2,62 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+
+  <!-- iPhone + Instagram SAFE viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
   <title>Emma Buie</title>
 
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --vh: 1vh; }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      background: #000;
-      overflow: hidden; /* IMPORTANT: prevents sideways weirdness */
-      font-family: Arial, sans-serif;
-    }
-
-    .scroller {
-      height: calc(var(--vh) * 100);
-      overflow-y: auto;
-      overflow-x: hidden;              /* IMPORTANT */
-      scroll-snap-type: y mandatory;
-      -webkit-overflow-scrolling: touch;
-      background: #000;
-    }
-
-    section {
-      height: calc(var(--vh) * 100);
-      width: 100%;
-      scroll-snap-align: start;
-      overflow: hidden;
-      background: #000;
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;        /* fills phone screen (no borders) */
-      object-position: center;
-      display: block;
-    }
-  </style>
+  <!-- LINK TO YOUR CSS FILE -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div class="scroller">
-    <section><img src="screen1.png" alt="Screen 1"></section>
-    <section><img src="screen2.png" alt="Screen 2"></section>
-    <section><img src="screen3.png" alt="Screen 3"></section>
-    <section><img src="screen4.png" alt="Screen 4"></section>
-  </div>
 
-  <script>
-    function setVh() {
-      document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
-    }
-    setVh();
-    window.addEventListener('resize', setVh);
-  </script>
+  <!-- SECTION 1 -->
+  <section class="screen">
+    <div class="media">
+      <img src="screen1.png" alt="Screen 1">
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section class="screen">
+    <div class="card">
+      <h1>EMMA</h1>
+      <p>
+        A driven business student and self-taught coder with a passion for growth,
+        creativity, and health through fitness. I bring several years of sales
+        experience and currently intern at Buie Investment Advisors.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="screen">
+    <div class="media">
+      <img src="screen2.png" alt="Screen 2">
+    </div>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section class="screen">
+    <div class="media">
+      <img src="screen3.png" alt="Screen 3">
+    </div>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section class="screen">
+    <div class="media">
+      <img src="screen4.png" alt="Screen 4">
+    </div>
+  </section>
+
 </body>
 </html>
