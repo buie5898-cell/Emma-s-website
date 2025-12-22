@@ -7,90 +7,61 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root { --vh: 1vh; }
 
     html, body {
       height: 100%;
       width: 100%;
-      overflow: hidden; /* the SCROLLER will scroll, not the page */
       background: #000;
       font-family: Arial, sans-serif;
-      touch-action: pan-x pan-y; /* allow swipe both ways */
     }
 
-    /* 2D scroll container */
+    /* One clean vertical scroller */
     .scroller {
-      width: 100vw;
       height: calc(var(--vh) * 100);
-      overflow: auto; /* enables both horizontal + vertical scroll */
-      scroll-snap-type: both mandatory;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
       -webkit-overflow-scrolling: touch;
-      overscroll-behavior: none;
       background: #000;
     }
 
-    /* 2x2 grid (you can expand later) */
-    .grid {
-      width: 200vw; /* 2 screens wide */
-      height: 200vh; /* 2 screens tall */
-      height: calc(var(--vh) * 200);
-      display: grid;
-      grid-template-columns: 100vw 100vw;
-      grid-template-rows: calc(var(--vh) * 100) calc(var(--vh) * 100);
-    }
-
-    .panel {
-      width: 100vw;
+    section {
       height: calc(var(--vh) * 100);
+      width: 100%;
       scroll-snap-align: start;
       overflow: hidden;
       background: #000;
     }
 
-    .panel img {
+    img {
       width: 100%;
       height: 100%;
-      object-fit: cover;       /* fills the whole phone screen (no borders) */
+      object-fit: cover;       /* fills screen (no borders) */
       object-position: center; /* keeps it centered */
       display: block;
     }
 
-    /* Optional: little hint text (remove if you don't want it) */
-    .hint {
-      position: fixed;
-      left: 12px;
-      bottom: 12px;
-      z-index: 9999;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.45);
-      color: rgba(255,255,255,0.9);
-      font-size: 12px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      pointer-events: none;
+    /* Optional: if something important is getting cropped on phones,
+       switch to contain on iPhone only (adds small borders but shows all).
+       Uncomment if you want it:
+    @media (max-width: 768px) {
+      img { object-fit: contain; }
     }
+    */
   </style>
 </head>
 
 <body>
-  <div class="scroller" aria-label="Scrollable grid">
-    <div class="grid">
-      <!-- Row 1 -->
-      <section class="panel"><img src="screen1.png" alt="Screen 1"></section>
-      <section class="panel"><img src="screen2.png" alt="Screen 2"></section>
-
-      <!-- Row 2 -->
-      <section class="panel"><img src="screen3.png" alt="Screen 3"></section>
-      <section class="panel"><img src="screen4.png" alt="Screen 4"></section>
-    </div>
+  <div class="scroller">
+    <section><img src="screen1.png" alt="Screen 1"></section>
+    <section><img src="screen2.png" alt="Screen 2"></section>
+    <section><img src="screen3.png" alt="Screen 3"></section>
+    <section><img src="screen4.png" alt="Screen 4"></section>
   </div>
 
-  <div class="hint">Swipe up/down/left/right</div>
-
   <script>
-    // iPhone Safari "100vh" fix
+    // Fix iPhone Safari 100vh (address bar changes height)
     function setVh() {
       document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
     }
