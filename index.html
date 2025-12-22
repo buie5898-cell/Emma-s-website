@@ -2,25 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Emma Buie</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
       height: 100%;
-      overflow-y: scroll;
+      width: 100%;
+      overflow-y: auto;
       scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
       font-family: Arial, sans-serif;
+      background: #000;
     }
 
+    /* JS sets this to the real mobile height */
+    :root { --vh: 1vh; }
+
     section {
-      height: 100vh;
+      /* best support across iphones + computers */
+      min-height: 100vh;                 /* fallback */
+      min-height: 100svh;                /* small viewport (stable on iOS) */
+      min-height: 100dvh;                /* dynamic viewport (newer) */
+      height: calc(var(--vh) * 100);     /* JS fallback for iOS */
       width: 100%;
       scroll-snap-align: start;
       overflow: hidden;
@@ -29,29 +35,24 @@
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: cover;   /* fills screen without stretching */
       display: block;
     }
   </style>
 </head>
 
 <body>
+  <section><img src="screen3.png" alt="Screen 3"></section>
+  <section><img src="screen4.png" alt="Screen 4"></section>
 
-  <section>
-    <img src="screen1.png" alt="Screen 1">
-  </section>
-
-  <section>
-    <img src="screen2.png" alt="Screen 2">
-  </section>
-
-  <section>
-    <img src="screen3.png" alt="Screen 3">
-  </section>
-
-  <section>
-    <img src="screen4.png" alt="Screen 4">
-  </section>
-
+  <script>
+    // Fix iPhone Safari "100vh" issue (address bar changes height)
+    function setVh() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    setVh();
+    window.addEventListener('resize', setVh);
+  </script>
 </body>
 </html>
