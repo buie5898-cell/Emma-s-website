@@ -6,51 +6,52 @@
   <title>Emma Buie</title>
 
   <style>
-    * { box-sizing: border-box; }
-
-    body {
+    * {
       margin: 0;
-      background: #f6f1ff;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* A full-screen “frame” */
-    .frame {
+    html, body {
+      height: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      font-family: Arial, sans-serif;
+    }
+
+    section {
+      height: 100vh;
       width: 100%;
-      height: 100vh;              /* exactly one screen tall */
-      background: #f6f1ff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      scroll-snap-align: start;
+      overflow: hidden;
     }
 
-    /* The image will NOT be cropped */
-    .hero {
+    img {
       width: 100%;
       height: 100%;
-      object-fit: contain;         /* shows the whole image */
-      object-position: top center; /* starts at the top (first images visible) */
+      object-fit: cover;
       display: block;
-      background: white;           /* clean border area if needed */
-    }
-
-    /* Optional: on desktop keep it a bit nicer */
-    @media (min-width: 768px) {
-      .frame {
-        padding: 24px;
-      }
-      .hero {
-        max-width: 430px;
-        border-radius: 24px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-      }
     }
   </style>
 </head>
 
 <body>
-  <div class="frame">
-    <img src="art.png" alt="Emma Buie design" class="hero" />
-  </div>
+
+  <section>
+    <img src="screen1.png" alt="Screen 1">
+  </section>
+
+  <section>
+    <img src="screen2.png" alt="Screen 2">
+  </section>
+
+  <section>
+    <img src="screen3.png" alt="Screen 3">
+  </section>
+
+  <section>
+    <img src="screen4.png" alt="Screen 4">
+  </section>
+
 </body>
 </html>
-
