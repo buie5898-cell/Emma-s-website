@@ -1,43 +1,40 @@
 <!DOCTYPE html>
-<html> 
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <title>Emma Buie</title>
+
   <style>
     body {
+      margin: 0;
       background-color: #f6f1ff;
-      font-family: Arial, sans-serif;
-
       display: flex;
       justify-content: center;
       align-items: center;
-
-      height: 100vh;
-      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
     }
 
-    .box {
+    .container {
+      width: 100%;
+      max-width: 420px;
       background: white;
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
     }
 
-    h1 {
-      color: #5a3d8a;
-      font-size: 48px;
-    }
-
-    p {
-      color: #555;
-      font-size: 20px;
+    .container img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
   </style>
 </head>
 
 <body>
-  <div class="box">
-    <h1>Hello </h1>
-    <p>This is Emma Buie's website.</p>
+  <div class="container">
+    <img src="art.png" alt="Emma Buie artwork">
   </div>
 </body>
 </html>
