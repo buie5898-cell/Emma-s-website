@@ -2,57 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
-  <!-- iPhone + Instagram SAFE viewport -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Emma Buie</title>
 
-  <!-- LINK TO YOUR CSS FILE -->
-  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+    }
+
+    /* Page scrolls naturally */
+    .screens {
+      width: 100%;
+    }
+
+    /* Each screen */
+    .screen {
+      width: 100%;
+      min-height: 100vh; /* NOT forced height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: black;
+    }
+
+    /* Image NEVER cropped */
+    .screen img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
 </head>
 
 <body>
+  <main class="screens">
 
-  <!-- SECTION 1 -->
-  <section class="screen">
-    <div class="media">
-      <img src="screen1.png" alt="Screen 1">
-    </div>
-  </section>
+    <section class="screen">
+      <img src="screen1.png" alt="Screen 1" />
+    </section>
 
-  <!-- SECTION 2 -->
-  <section class="screen">
-    <div class="card">
-      <h1>EMMA</h1>
-      <p>
-        A driven business student and self-taught coder with a passion for growth,
-        creativity, and health through fitness. I bring several years of sales
-        experience and currently intern at Buie Investment Advisors.
-      </p>
-    </div>
-  </section>
+    <section class="screen">
+      <img src="screen2.png" alt="Screen 2" />
+    </section>
 
-  <!-- SECTION 3 -->
-  <section class="screen">
-    <div class="media">
-      <img src="screen2.png" alt="Screen 2">
-    </div>
-  </section>
+    <section class="screen">
+      <img src="screen3.png" alt="Screen 3" />
+    </section>
 
-  <!-- SECTION 4 -->
-  <section class="screen">
-    <div class="media">
-      <img src="screen3.png" alt="Screen 3">
-    </div>
-  </section>
+    <section class="screen">
+      <img src="screen4.png" alt="Screen 4" />
+    </section>
 
-  <!-- SECTION 5 -->
-  <section class="screen">
-    <div class="media">
-      <img src="screen4.png" alt="Screen 4">
-    </div>
-  </section>
-
+  </main>
 </body>
 </html>
