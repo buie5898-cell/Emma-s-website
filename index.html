@@ -16,7 +16,8 @@
   <!-- TOP BAR (always visible) -->
   <header class="topbar">
     <div class="left-actions">
-      <a class="icon-btn" href="https://instagram.com/emmabuie" target="_blank" rel="noopener" aria-label="Instagram">
+      <a class="icon-btn" href="https://instagram.com/emmabuie" target="_blank" rel="noopener">
+        <!-- simple black IG icon -->
         <svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm10.25 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
         </svg>
@@ -25,18 +26,18 @@
       <a class="mail-link" href="mailto:emmaruthbuie@yahoo.com">MAIL</a>
     </div>
 
-    <!-- RIGHT SIDE: HOME + MENU (HOME is to the LEFT of MENU) -->
+    <!-- RIGHT SIDE: HOME (left) + MENU (right) -->
     <div class="right-actions">
       <button class="home-btn" id="homeBtn" type="button">HOME</button>
 
-      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="dropdown" type="button">
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="dropdown">
         <span class="menu-text">MENU</span>
         <span class="menu-icon">≡</span>
       </button>
     </div>
   </header>
 
-  <!-- DROPDOWN -->
+  <!-- DROPDOWN (slides down like your screenshot) -->
   <nav class="dropdown" id="dropdown" aria-hidden="true">
     <div class="dropdown-nav">
       <button class="nav-link" data-page="about" type="button">About</button>
@@ -45,12 +46,17 @@
     </div>
   </nav>
 
+  <!-- PAGES (home is locked, others can scroll) -->
   <main class="pages">
     <!-- HOME (NO SCROLL) -->
     <section class="page page-home is-active" id="home" aria-label="Home">
       <div class="hero">
-        <!-- ✅ FIX: absolute path so custom domain + GitHub Pages loads it -->
-        <img src="/assets/hero.png" class="hero-img" alt="Emma Buie" />
+        <img
+          src="./assets/hero.png"
+          class="hero-img"
+          alt="Emma Buie"
+          onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/buie5898-cell/Emmabuie-website/main/assets/hero.png';"
+        />
         <div class="hero-name">
           <span>EMMA</span>
           <span>BUIE</span>
@@ -83,18 +89,17 @@
         </div>
 
         <div class="about-image">
-          <!-- ✅ absolute path -->
-          <img src="/assets/rough2.png" alt="About photo" />
+          <img src="./assets/rough2.png" alt="About photo" />
         </div>
       </div>
 
+      <!-- second image underneath -->
       <div class="about-bottom">
-        <!-- ✅ absolute path -->
-        <img src="/assets/rough1.png" alt="Second about photo" />
+        <img src="./assets/rough1.png" alt="Second about photo" />
       </div>
     </section>
 
-    <!-- SERVICES -->
+    <!-- SERVICES (SCROLL OK) -->
     <section class="page page-scroll" id="services" aria-label="Services">
       <div class="services">
         <h2>MAIN SERVICES</h2>
@@ -146,7 +151,7 @@
       </div>
     </section>
 
-    <!-- GET STARTED -->
+    <!-- GET STARTED (SCROLL OK + won’t cut off) -->
     <section class="page page-scroll" id="contact" aria-label="Get Started">
       <div class="contact">
         <h2>Get Started</h2>
@@ -177,8 +182,8 @@
           <label><input type="radio" name="maintenance" /> NO</label>
         </div>
 
-        <!-- ✅ Submit button underneath the info -->
-        <button class="submit-btn" type="button">Submit</button>
+        <!-- SUBMIT BUTTON (added under the info) -->
+        <button class="submit-btn" id="submitBtn" type="button">Submit</button>
 
         <div class="contact-spacer"></div>
       </div>
@@ -187,10 +192,11 @@
 
   <script>
     const menuBtn = document.getElementById("menuBtn");
-    const homeBtn = document.getElementById("homeBtn");
     const dropdown = document.getElementById("dropdown");
     const pages = document.querySelectorAll(".page");
     const links = document.querySelectorAll(".nav-link");
+    const homeBtn = document.getElementById("homeBtn");
+    const submitBtn = document.getElementById("submitBtn");
 
     function openMenu() {
       dropdown.classList.add("open");
@@ -213,17 +219,14 @@
       const next = document.getElementById(pageId);
       if (next) next.classList.add("is-active");
       closeMenu();
+
+      // if scrolling pages, start at top
       if (next && next.classList.contains("page-scroll")) next.scrollTop = 0;
     }
 
     menuBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       toggleMenu();
-    });
-
-    homeBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      goTo("home");
     });
 
     links.forEach(btn => {
@@ -233,13 +236,29 @@
       });
     });
 
+    // HOME button
+    homeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      goTo("home");
+    });
+
+    // Submit (basic placeholder)
+    submitBtn.addEventListener("click", () => {
+      alert("Submitted! (This is a placeholder — we can connect it to email or a form later.)");
+    });
+
+    // close if you click outside dropdown
     document.addEventListener("click", () => closeMenu());
+
+    // don’t close if clicking inside dropdown
     dropdown.addEventListener("click", (e) => e.stopPropagation());
 
+    // Esc closes menu
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeMenu();
     });
 
+    // smooth blur->clear animation on home image
     window.addEventListener("load", () => document.body.classList.add("loaded"));
   </script>
 </body>
