@@ -51,6 +51,10 @@
       <div class="hero">
         <div class="hero-inner">
           <img src="assets/hero.png" class="hero-img" alt="Emma Buie" />
+
+          <!-- ✅ NEW: intro text that fades away once on load -->
+          <div class="hero-intro" id="heroIntro" aria-hidden="true">CUSTOM WEBSITES</div>
+
           <div class="hero-name">
             <span>EMMA</span>
             <span>BUIE</span>
@@ -192,6 +196,9 @@
     const links = document.querySelectorAll(".nav-link");
     const homeBtn = document.getElementById("homeBtn");
 
+    // ✅ NEW: intro text reference
+    const heroIntro = document.getElementById("heroIntro");
+
     function openMenu() {
       dropdown.classList.add("open");
       menuBtn.setAttribute("aria-expanded", "true");
@@ -242,7 +249,17 @@
       if (e.key === "Escape") closeMenu();
     });
 
-    window.addEventListener("load", () => document.body.classList.add("loaded"));
+    window.addEventListener("load", () => {
+      document.body.classList.add("loaded");
+
+      // ✅ NEW: play once, then remove from layout
+      if (heroIntro) {
+        heroIntro.classList.add("play");
+        heroIntro.addEventListener("animationend", () => {
+          heroIntro.style.display = "none";
+        }, { once: true });
+      }
+    });
   </script>
 </body>
 </html>
