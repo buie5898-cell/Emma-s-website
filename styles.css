@@ -9,7 +9,7 @@ html, body {
 body {
   background: #000;
   color: #fff;
-  overflow: hidden; /* site doesn't scroll; pages scroll */
+  overflow: hidden; /* site does not scroll; pages scroll */
 }
 
 /* ---------- TOP BAR ---------- */
@@ -33,7 +33,7 @@ body {
   gap: 18px;
 }
 
-/* HOME always beside MENU, HOME on the left */
+/* HOME always beside MENU (HOME on left) */
 .right-actions{
   display: flex;
   align-items: center;
@@ -119,11 +119,13 @@ body {
 .nav-link:hover { opacity: .7; }
 
 /* ---------- PAGES container ---------- */
+/* ✅ uses dynamic vh for older iPhones */
 .pages {
   position: fixed;
   top: 90px;
-  bottom: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
+  height: calc((var(--vh, 1vh) * 100) - 90px);
   background: #000;
 }
 
@@ -140,25 +142,26 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain; /* iOS stability */
+  touch-action: pan-y;          /* iOS stability */
   padding-bottom: 110px;
 }
 
 /* ---------- HOME (FULL IMAGE + SCROLL) ---------- */
-/* Let HOME scroll and allow content height to exceed the viewport */
+/* Only HOME: remove absolute trapping so scroll works on very old iPhones */
 .page-home {
   position: relative;
   inset: auto;
-  background: #000;
 }
 
-/* Don't lock hero to viewport height */
+/* Don’t force to screen height; allow real content height */
 .hero {
   width: 100%;
   height: auto;
   position: relative;
 }
 
-/* Full image, no crop */
+/* Full image (no crop) */
 .hero-img {
   width: 100%;
   height: auto;
@@ -171,7 +174,6 @@ body {
 
 body.loaded .hero-img { filter: blur(0); }
 
-/* Your overlay text stays exactly where it was */
 .hero-name {
   position: absolute;
   left: 0;
@@ -185,15 +187,15 @@ body.loaded .hero-img { filter: blur(0); }
   color: rgba(255,255,255,.55);
 }
 
-/* Extra space at end so it ALWAYS scrolls */
+/* Extra space so Home ALWAYS scrolls a bit */
 .home-scroll-space{
-  height: 140px;
+  height: 180px;
 }
 
 /* ---------- ABOUT ---------- */
 .about-layout {
   width: 100%;
-  min-height: calc(100vh - 90px);
+  min-height: calc((var(--vh, 1vh) * 100) - 90px);
   display: grid;
   grid-template-columns: 42% 58%;
   background: #000;
