@@ -209,11 +209,11 @@ body.loaded .hero-img { filter: blur(0); }
 .hero-intro {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 30%;
   transform: translate(-50%, -50%);
   font-family: inherit;                 /* same as home page font */
   font-weight: 600;
-  font-size: clamp(18px, 3.5vw, 44px);  /* responsive on all devices */
+  font-size: clamp(26px, 5vw, 72px);  /* responsive on all devices */
   letter-spacing: .28em;
   color: #000;                          /* black */
   text-align: center;
@@ -223,7 +223,7 @@ body.loaded .hero-img { filter: blur(0); }
 }
 
 .hero-intro.play {
-  animation: introFadeOut 2.5s ease forwards;
+  animation: introFadeOut 3.0s ease forwards;
 }
 
 @keyframes introFadeOut {
