@@ -3,9 +3,7 @@
 :root{
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
-
-  /* JS sets this to the real topbar height */
-  --topbar-h: 90px;
+  --topbar-h: 90px; /* JS overwrites with real height */
 }
 
 html, body {
@@ -20,7 +18,7 @@ body {
   overflow: hidden;
 }
 
-/* ---------- TOP BAR (won’t crop) ---------- */
+/* ---------- TOP BAR ---------- */
 .topbar {
   position: fixed;
   top: 0;
@@ -34,14 +32,11 @@ body {
   justify-content: space-between;
   align-items: center;
 
-  /* ✅ safe area + a little extra breathing room */
   padding: calc(var(--safe-top) + 14px) 34px 14px 34px;
-
-  /* ✅ allow it to grow; JS measures it */
   height: auto;
 
   z-index: 2000;
-  transform: translateZ(0); /* helps older mobile rendering */
+  transform: translateZ(0);
 }
 
 .left-actions {
@@ -101,7 +96,7 @@ body {
   line-height: 1;
 }
 
-/* ---------- DROPDOWN (won’t crop; scrolls if needed) ---------- */
+/* ---------- DROPDOWN ---------- */
 .dropdown {
   position: fixed;
   top: var(--topbar-h);
@@ -115,7 +110,6 @@ body {
   transition: transform 0.45s ease;
   box-shadow: 0 6px 30px rgba(0,0,0,.12);
 
-  /* ✅ prevents dropdown getting chopped on small/old devices */
   max-height: calc((var(--vh, 1vh) * 100) - var(--topbar-h) - var(--safe-bottom));
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -142,24 +136,19 @@ body {
 
 .nav-link:hover { opacity: .7; }
 
-/* ---------- PAGES container (true visible area) ---------- */
+/* ---------- PAGES ---------- */
 .pages {
   position: fixed;
   top: var(--topbar-h);
   left: 0;
   right: 0;
-
   height: calc((var(--vh, 1vh) * 100) - var(--topbar-h));
   background: #000;
 }
 
 @supports (height: 100dvh) {
-  .pages {
-    height: calc(100dvh - var(--topbar-h));
-  }
-  .dropdown {
-    max-height: calc(100dvh - var(--topbar-h) - var(--safe-bottom));
-  }
+  .pages { height: calc(100dvh - var(--topbar-h)); }
+  .dropdown { max-height: calc(100dvh - var(--topbar-h) - var(--safe-bottom)); }
 }
 
 .page {
@@ -176,19 +165,20 @@ body {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-
-  /* extra space so nothing is hidden behind bottom UI */
   padding-bottom: calc(110px + var(--safe-bottom));
 }
 
-/* ---------- HOME IMAGE + FIXED TEXT ---------- */
-.hero {
-  width: 100%;
-  height: calc(100% + 320px); /* scroll reveals more of photo */
+/* ---------- HOME: ONLY PHOTO SCROLLS, TEXT LOCKED ---------- */
+.page-home { position: relative; }
+
+/* This makes the photo area tall so you can scroll */
+.home-media{
+  height: calc(100% + 420px); /* more scroll room */
   position: relative;
 }
 
-.hero-img {
+/* Full-screen cover look stays the same */
+.home-photo{
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -199,26 +189,37 @@ body {
   transition: filter 1s ease;
 }
 
-body.loaded .hero-img { filter: blur(0); }
+body.loaded .home-photo { filter: blur(0); }
 
-/* fixed overlay that DOES NOT MOVE */
-.home-name-fixed{
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 12%;
-  display: none; /* only show on home */
+/* Locked text overlay */
+.home-title{
+  position: sticky;   /* stays pinned inside the home scroll container */
+  top: calc(100% - 1px); /* trick to keep it pinned while scrolling */
+  transform: translateY(-12%);
+  display: flex;
   justify-content: space-between;
   padding: 0 70px;
-  font-size: clamp(44px, 6vw, 92px);
+
   letter-spacing: .28em;
   color: rgba(255,255,255,.55);
-  z-index: 1500;
   pointer-events: none;
+
+  /* default size */
+  font-size: clamp(44px, 6vw, 92px);
 }
 
-/* show ONLY when home is active */
-body[data-page="home"] .home-name-fixed{ display: flex; }
+/* extra scroll room */
+.home-scroll-space{ height: 80px; }
+
+/* ✅ Make “Emma Buie” smaller on mobile */
+@media (max-width: 520px) {
+  .home-title{
+    padding: 0 22px;
+    letter-spacing: .22em;
+    font-size: clamp(26px, 8vw, 44px);
+    transform: translateY(-10%);
+  }
+}
 
 /* ---------- ABOUT ---------- */
 .about-layout {
@@ -365,6 +366,5 @@ body[data-page="home"] .home-name-fixed{ display: flex; }
   .services-grid { grid-template-columns: 1fr; }
   .about-layout { grid-template-columns: 1fr; }
   .about-image { height: 60vh; }
-  .home-name-fixed { padding: 0 28px; }
   .right-actions{ gap: 18px; }
 }
