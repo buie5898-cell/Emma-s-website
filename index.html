@@ -26,7 +26,7 @@
       <a class="mail-link" href="mailto:emmaruthbuie@yahoo.com">MAIL</a>
     </div>
 
-    <!-- RIGHT SIDE: HOME always beside MENU (HOME on left) -->
+    <!-- HOME always beside MENU (HOME on the left) -->
     <div class="right-actions">
       <button class="menu-btn" id="homeBtn" type="button">
         <span class="menu-text">HOME</span>
@@ -49,7 +49,7 @@
   </nav>
 
   <main class="pages">
-    <!-- HOME (FULL IMAGE + SCROLL + extra room) -->
+    <!-- HOME (FULL IMAGE + SCROLL + extra space) -->
     <section class="page page-home page-scroll is-active" id="home" aria-label="Home">
       <div class="hero">
         <img src="./assets/hero.png" class="hero-img" alt="Emma Buie" />
@@ -58,12 +58,12 @@
           <span>BUIE</span>
         </div>
 
-        <!-- extra scroll room (ONLY for home) -->
+        <!-- extra room so it always scrolls a bit -->
         <div class="home-scroll-space" aria-hidden="true"></div>
       </div>
     </section>
 
-    <!-- ABOUT (SCROLL OK) -->
+    <!-- ABOUT -->
     <section class="page page-scroll" id="about" aria-label="About">
       <div class="about-layout">
         <div class="about-text">
@@ -97,7 +97,7 @@
       </div>
     </section>
 
-    <!-- SERVICES (SCROLL OK) -->
+    <!-- SERVICES -->
     <section class="page page-scroll" id="services" aria-label="Services">
       <div class="services">
         <h2>MAIN SERVICES</h2>
@@ -187,6 +187,15 @@
   </main>
 
   <script>
+    // ✅ Dynamic viewport height fix for older iPhones (Safari)
+    function setVh() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    setVh();
+    window.addEventListener('resize', setVh);
+    window.addEventListener('orientationchange', setVh);
+
     const menuBtn = document.getElementById("menuBtn");
     const dropdown = document.getElementById("dropdown");
     const pages = document.querySelectorAll(".page");
@@ -214,6 +223,8 @@
       const next = document.getElementById(pageId);
       if (next) next.classList.add("is-active");
       closeMenu();
+
+      // scroll reset for scrolling pages
       if (next && next.classList.contains("page-scroll")) next.scrollTop = 0;
     }
 
@@ -240,6 +251,7 @@
       if (e.key === "Escape") closeMenu();
     });
 
+    // blur -> clear
     window.addEventListener("load", () => document.body.classList.add("loaded"));
   </script>
 </body>
