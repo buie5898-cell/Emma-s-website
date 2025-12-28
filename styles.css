@@ -119,7 +119,6 @@ body {
 .nav-link:hover { opacity: .7; }
 
 /* ---------- PAGES container ---------- */
-/* Dynamic height for iOS Safari */
 .pages {
   position: fixed;
   top: 90px;
@@ -137,7 +136,7 @@ body {
 
 .page.is-active { display: block; }
 
-/* Make scroll container reliably scroll on desktop + mobile */
+/* ✅ This is the key desktop fix: force the scroll container to actually have height */
 .page-scroll {
   height: 100%;
   overflow-y: auto;
@@ -147,16 +146,16 @@ body {
   padding-bottom: 110px;
 }
 
-/* ---------- HOME (FULL IMAGE + SCROLL) ---------- */
+/* ---------- HOME (FULL IMAGE + ALWAYS SCROLLS) ---------- */
 .page-home { background: #000; }
 
-/* Let hero grow (so scroll happens) */
+/* Full image (no crop) */
 .hero {
   width: 100%;
   position: relative;
 }
 
-/* Full image (no crop) */
+/* Show the entire image */
 .hero-img {
   width: 100%;
   height: auto;
@@ -182,9 +181,10 @@ body.loaded .hero-img { filter: blur(0); }
   color: rgba(255,255,255,.55);
 }
 
-/* Extra space so Home ALWAYS scrolls (desktop + mobile) */
+/* ✅ GUARANTEES overflow so Mac scroll always works */
 .home-scroll-space{
-  height: 220px;
+  height: 260px;
+  display: block;
 }
 
 /* ---------- ABOUT ---------- */
