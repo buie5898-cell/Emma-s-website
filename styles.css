@@ -209,7 +209,7 @@ body.loaded .hero-img { filter: blur(0); }
 .hero-intro {
   position: absolute;
   left: 50%;
-  top: 30%;
+  top: 25%;
   transform: translate(-50%, -50%);
   font-family: inherit;                 /* same as home page font */
   font-weight: 600;
