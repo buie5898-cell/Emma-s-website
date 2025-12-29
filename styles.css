@@ -9,8 +9,8 @@ html, body {
 body {
   background: #000;
   color: #fff;
-  overflow: hidden;         /* keep site from scrolling */
-  overflow-x: hidden;       /* prevent sideways scroll on old phones */
+  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* remove default blue link styles everywhere */
@@ -68,14 +68,12 @@ a:focus { outline: none; }
   fill: #fff;
 }
 
-/* ✅ GitHub icon */
 .gh-icon {
   width: 18px;
   height: 18px;
   fill: #fff;
 }
 
-/* keep MAIL unchanged */
 .mail-link {
   color: #000;
   text-decoration: none;
@@ -104,10 +102,7 @@ a:focus { outline: none; }
   line-height: 1;
 }
 
-/* HOME uses same styling as menu (no icon) */
-.home-btn {
-  gap: 0;
-}
+.home-btn { gap: 0; }
 
 /* ---------- DROPDOWN ---------- */
 .dropdown {
@@ -130,7 +125,7 @@ a:focus { outline: none; }
   align-items: center;
   gap: 110px;
   padding: 34px 24px;
-  flex-wrap: wrap;          /* prevents sideways scroll on small/old devices */
+  flex-wrap: wrap;
 }
 
 .nav-link {
@@ -172,32 +167,30 @@ a:focus { outline: none; }
   padding-bottom: 110px;
 }
 
-/* ---------- HOME (ONLY image scrolls; text stays attached to image) ---------- */
+/* ---------- HOME ---------- */
 .page-home {
-  overflow-y: auto;                 /* allow scroll on home only */
+  overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
-.hero {
-  width: 100%;
-}
+.hero { width: 100%; }
 
 .hero-inner {
-  position: relative;               /* overlay text anchors to the image */
+  position: relative;
   width: 100%;
 }
 
-/* ✅ full image (no crop), NO BLUR anymore */
+/* ✅ NO BLUR */
 .hero-img {
   width: 100%;
   height: auto;
   display: block;
-  filter: none;                     /* removed blur */
+  filter: none;
+  transition: none;
+  position: relative;
+  z-index: 1;
 }
-
-/* ✅ remove loaded blur transition (not needed) */
-body.loaded .hero-img { filter: none; }
 
 .hero-name {
   position: absolute;
@@ -211,35 +204,36 @@ body.loaded .hero-img { filter: none; }
   letter-spacing: .28em;
   color: rgba(255,255,255,.55);
   pointer-events: none;
+  z-index: 10;
 }
 
-/* ✅ RIBBON OVERLAY */
-.ribbon{
+/* ---------- PINK RIBBON ---------- */
+.ribbon {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 5;
 }
 
-.ribbon-group{
+.ribbon-group {
   transform-origin: 50% 50%;
   animation: ribbonFloat 6s ease-in-out infinite, ribbonDrift 10s ease-in-out infinite;
 }
 
-@keyframes ribbonFloat{
-  0%,100%{ transform: translateY(0); }
-  50%{ transform: translateY(-18px); }
+@keyframes ribbonFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
 }
 
-@keyframes ribbonDrift{
-  0%,100%{ transform: translateX(0) rotate(0deg); }
-  50%{ transform: translateX(18px) rotate(0.6deg); }
+@keyframes ribbonDrift {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(18px) rotate(0.6deg); }
 }
 
-/* Accessibility */
 @media (prefers-reduced-motion: reduce){
-  .ribbon-group{ animation: none; }
+  .ribbon-group { animation: none; }
 }
 
 /* ---------- ABOUT ---------- */
@@ -285,9 +279,7 @@ body.loaded .hero-img { filter: none; }
 }
 
 /* ---------- SERVICES ---------- */
-.services {
-  padding: 56px 54px 90px;
-}
+.services { padding: 56px 54px 90px; }
 
 .services h2 {
   margin: 0 0 30px;
@@ -394,7 +386,6 @@ body.loaded .hero-img { filter: none; }
   .about-image { height: 60vh; }
 }
 
-/* extra protection for older/smaller phones (prevents topbar overflow) */
 @media (max-width: 520px) {
   .mail-link { font-size: 16px; letter-spacing: .22em; }
   .menu-btn { font-size: 18px; letter-spacing: .22em; gap: 12px; }
