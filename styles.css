@@ -68,6 +68,14 @@ a:focus { outline: none; }
   fill: #fff;
 }
 
+/* ✅ GitHub icon */
+.gh-icon {
+  width: 18px;
+  height: 18px;
+  fill: #fff;
+}
+
+/* keep MAIL unchanged */
 .mail-link {
   color: #000;
   text-decoration: none;
@@ -164,7 +172,7 @@ a:focus { outline: none; }
   padding-bottom: 110px;
 }
 
-/* ---------- HOME (image scrolls; text stays attached to image) ---------- */
+/* ---------- HOME (ONLY image scrolls; text stays attached to image) ---------- */
 .page-home {
   overflow-y: auto;                 /* allow scroll on home only */
   overflow-x: hidden;
@@ -180,55 +188,58 @@ a:focus { outline: none; }
   width: 100%;
 }
 
-/* full image (no crop). if image is taller, you can scroll to see all of it */
+/* ✅ full image (no crop), NO BLUR anymore */
 .hero-img {
   width: 100%;
   height: auto;
   display: block;
-  filter: blur(12px);
-  transition: filter 1s ease;
+  filter: none;                     /* removed blur */
 }
 
-body.loaded .hero-img { filter: blur(0); }
+/* ✅ remove loaded blur transition (not needed) */
+body.loaded .hero-img { filter: none; }
 
 .hero-name {
   position: absolute;
   left: 0;
   right: 0;
-  top: 40%;
+  bottom: 6%;
   display: flex;
   justify-content: space-between;
   padding: 0 clamp(18px, 6vw, 70px);
   font-size: clamp(34px, 6vw, 92px);
   letter-spacing: .28em;
-  color: rgba(255,255,255,.95);
+  color: rgba(255,255,255,.55);
   pointer-events: none;
 }
 
-/* ✅ NEW: CUSTOM WEBSITES centered + black + slow fade away */
-.hero-intro {
+/* ✅ RIBBON OVERLAY */
+.ribbon{
   position: absolute;
-  left: 50%;
-  top: 25%;
-  transform: translate(-50%, -50%);
-  font-family: inherit;                 /* same as home page font */
-  font-weight: 600;
-  font-size: clamp(26px, 5vw, 72px);  /* responsive on all devices */
-  letter-spacing: .28em;
-  color: #000;                          /* black */
-  text-align: center;
-  white-space: nowrap;
-  opacity: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
-.hero-intro.play {
-  animation: introFadeOut 6.0s ease forwards;
+.ribbon-group{
+  transform-origin: 50% 50%;
+  animation: ribbonFloat 6s ease-in-out infinite, ribbonDrift 10s ease-in-out infinite;
 }
 
-@keyframes introFadeOut {
-  0%   { opacity: 1; }
-  100% { opacity: 0; }
+@keyframes ribbonFloat{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-18px); }
+}
+
+@keyframes ribbonDrift{
+  0%,100%{ transform: translateX(0) rotate(0deg); }
+  50%{ transform: translateX(18px) rotate(0.6deg); }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce){
+  .ribbon-group{ animation: none; }
 }
 
 /* ---------- ABOUT ---------- */
@@ -391,7 +402,4 @@ body.loaded .hero-img { filter: blur(0); }
   .dropdown-nav { padding: 22px 16px; gap: 18px; }
   .nav-link { font-size: 22px; }
   .hero-name { letter-spacing: .18em; font-size: clamp(26px, 8vw, 46px); }
-
-  /* keep intro clean on tiny screens */
-  .hero-intro { letter-spacing: .18em; }
 }
